@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isabelle Petri Bessa | Cinema & Fotografia</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Biblioteca de Animações -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <!-- Ícones Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #E3B505;
+      --dark-bg: #0A0A0A;
+      --light-text: #F4F4F4;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    /* Reset e configurações básicas */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--light-text);
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    /* Navbar */
+    .navbar {
+      background: rgba(10, 10, 10, 0.95) !important;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--primary-color) !important;
+    }
+    /* Estilo para o botão do menu no mobile (hamburger) */
+    .navbar-toggler {
+      border: 2px solid var(--primary-color);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .navbar-toggler-icon {
+      filter: invert(100%);
+    }
+    /* Ajuste dos links do menu para melhorar a visibilidade */
+    .navbar-nav .nav-link {
+      color: #ffffff !important;
+      transition: color 0.3s ease;
+    }
+    .navbar-nav .nav-link:hover {
+      color: var(--primary-color) !important;
+    }
+    /* Hero Section com Vídeo de Fundo */
+    .hero-section {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -3;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 10, 0.7);
+      z-index: -2;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding-top: 7rem; /* Espaço para não ficar sobre o menu */
+    }
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: -10%;
+      width: 120%;
+      height: 100px;
+      background: var(--dark-bg);
+      transform: rotate(-3deg);
+      z-index: 0;
+    }
+    .typed-container p {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    /* Botão do Hero com efeito hover */
+    .btn-outline-light:hover {
+      background: var(--primary-color);
+      color: #0A0A0A;
+    }
+    /* Portfolio Grid */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .portfolio-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-10px);
+    }
+    .portfolio-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+    .portfolio-overlay {
+      position: absolute;
+      bottom: 0;
+      background: linear-gradient(transparent, rgba(10, 10, 10, 0.9));
+      width: 100%;
+      padding: 2rem 1rem 1rem;
+    }
+    /* Timeline */
+    .timeline {
+      border-left: 3px solid var(--primary-color);
+      padding-left: 3rem;
+      margin-left: 1rem;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -3.8rem;
+      top: 1rem;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-color);
+      border-radius: 50%;
+    }
+    /* Depoimentos */
+    .testimonials {
+      padding: 4rem 2rem;
+      background: #111;
+    }
+    .testimonial-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 8px;
+      margin: 1rem;
+    }
+    /* Formulário de Contato */
+    .contact-form {
+      padding: 4rem 2rem;
+      background: #111;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      background: #222;
+      border: none;
+      color: var(--light-text);
+      transition: all 0.3s ease-in-out;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      transform: scale(1.02);
+      box-shadow: none;
+      border-color: var(--primary-color);
+    }
+    /* Footer */
+    footer {
+      background: #000;
+      padding: 4rem 0 2rem;
+      margin-top: 4rem;
+      border-top: 3px solid var(--primary-color);
+    }
+    .social-links a {
+      color: var(--light-text);
+      margin: 0 1rem;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+    .social-links a:hover {
+      color: var(--primary-color);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      position: relative;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: var(--primary-color);
+    }
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary-color);
+      color: var(--dark-bg);
+      padding: 0.5rem 0.7rem;
+      border-radius: 50%;
+      display: none;
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+    .back-to-top:hover {
+      background: darkorange;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navegação -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Isabelle Petri Bessa</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="#portfolio">Portfólio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#formacao">Formação</a></li>
+          <li class="nav-item"><a class="nav-link" href="#depoimentos">Depoimentos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section com Vídeo de Fundo -->
+  <header class="hero-section" data-aos="fade-in">
+    <video autoplay loop muted playsinline class="hero-video" poster="https://via.placeholder.com/1920x1080">
+      <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+      Seu navegador não suporta vídeo.
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="container text-center hero-content">
+      <h1 class="display-1 fw-bold mb-4">Isabelle Petri Bessa</h1>
+      <div class="typed-container">
+        <p class="h3 text-uppercase" id="typed-text"></p>
+      </div>
+      <a href="#portfolio" class="btn btn-lg btn-outline-light mt-4">Veja Meu Portfólio</a>
+    </div>
+  </header>
+
+  <!-- Seção Sobre -->
+  <section id="sobre" class="py-5" data-aos="fade-up">
+    <div class="container py-5">
+      <h2 class="section-title">Sobre Mim</h2>
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-4">
+          <img src="belle.png" alt="Isabelle" class="img-fluid rounded-3 shadow-lg">
+        </div>
+        <div class="col-md-6">
+          <p class="lead">Cineasta e fotógrafa profissional com formação em andamento pela Universidade Federal de Sergipe, com especialização em narrativas visuais e direção cinematográfica. Meu trabalho explora a intersecção entre a realidade e a ficção, criando experiências visuais inesquecíveis.</p>
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <ul class="list-unstyled">
+                <li class="mb-2"><i class="fas fa-award me-2"></i>2 Reconhecimentos</li>
+                <li class="mb-2"><i class="fas fa-film me-2"></i>3 Projetos Concluídos</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <ul class="list-unstyled">
+                <li class="mb-2"><i class="fas fa-camera me-2"></i>Fotografia Digital</li>
+                <li class="mb-2"><i class="fas fa-video me-2"></i>Direção Cinematográfica</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção Portfólio -->
+  <section id="portfolio" class="py-5 bg-dark" data-aos="fade-up">
+    <div class="container py-5">
+      <h2 class="section-title">Portfólio</h2>
+      <div class="portfolio-grid">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modalProjeto1">
+          <div class="portfolio-card">
+            <img src="https://source.unsplash.com/600x400/?movie-set" class="portfolio-image" alt="Projeto 1">
+            <div class="portfolio-overlay">
+              <h3>Luzes da Cidade</h3>
+              <p>Direção • Fotografia • Edição</p>
+            </div>
+          </div>
+        </a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modalProjeto2">
+          <div class="portfolio-card">
+            <img src="https://source.unsplash.com/600x400/?cinema" class="portfolio-image" alt="Projeto 2">
+            <div class="portfolio-overlay">
+              <h3>Sons do Silêncio</h3>
+              <p>Produção • Roteiro • Direção</p>
+            </div>
+          </div>
+        </a>
+        <!-- Adicione mais itens do portfólio conforme necessário -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Projeto 1 -->
+  <div class="modal fade" id="modalProjeto1" tabindex="-1" aria-labelledby="modalProjeto1Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="modalProjeto1Label">Luzes da Cidade</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <img src="https://source.unsplash.com/800x400/?movie-set" class="img-fluid mb-3" alt="Luzes da Cidade">
+          <p>Descrição detalhada do projeto "Luzes da Cidade". Aqui você pode incluir informações sobre o conceito, a direção, os desafios e os resultados alcançados.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Projeto 2 -->
+  <div class="modal fade" id="modalProjeto2" tabindex="-1" aria-labelledby="modalProjeto2Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="modalProjeto2Label">Sons do Silêncio</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <img src="https://source.unsplash.com/800x400/?cinema" class="img-fluid mb-3" alt="Sons do Silêncio">
+          <p>Descrição detalhada do projeto "Sons do Silêncio". Inclua detalhes sobre a produção, a narrativa e as técnicas utilizadas para alcançar o resultado desejado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção Formação -->
+  <section id="formacao" class="py-5" data-aos="fade-up">
+    <div class="container py-5">
+      <h2 class="section-title">Formação</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>Bacharelado em Cinema e Audiovisual</h4>
+          <p class="text-muted">Universidade Federal de Sergipe • 2024-2027</p>
+          <p>Formação em andamento em produção audiovisual com ênfase em direção cinematográfica e fotografia.</p>
+        </div>
+        <!-- Mais itens da timeline podem ser adicionados aqui -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção Depoimentos -->
+  <section id="depoimentos" class="testimonials" data-aos="fade-up">
+    <div class="container">
+      <h2 class="section-title">O que dizem sobre mim</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="testimonial-item">
+            <p>"Uma visão única e inovadora. Transformou nossas ideias em realidade com maestria."</p>
+            <h5 class="mt-3">Cliente Satisfeito</h5>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-item">
+            <p>"Profissional excepcional, sempre atenta aos detalhes e com um toque artístico incomparável."</p>
+            <h5 class="mt-3">Produtor Executivo</h5>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-item">
+            <p>"Sua direção e fotografia elevam qualquer projeto a um novo patamar de qualidade."</p>
+            <h5 class="mt-3">Diretor Criativo</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- Seção Contato -->
+<section id="contato" class="contact-form" data-aos="fade-up">
+  <div class="container">
+    <h2 class="section-title">Contato</h2>
+    <form action="mailto:spessuporte@gmail.com" method="post" enctype="text/plain">
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="nome" name="nome" placeholder="Seu nome">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Seu e-mail">
+      </div>
+      <div class="mb-3">
+        <label for="mensagem" class="form-label">Mensagem</label>
+        <textarea class="form-control" id="mensagem" name="mensagem" rows="4" placeholder="Sua mensagem"></textarea>
+      </div>
+      <button type="submit" class="btn btn-outline-light">Enviar Mensagem</button>
+    </form>
+  </div>
+</section>
+
+  <!-- Footer -->
+  <footer data-aos="fade-up">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h4>Isabelle Petri Bessa</h4>
+          <p class="text-muted">Criando narrativas visuais impactantes através do cinema e fotografia.</p>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h4>Contato</h4>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-envelope me-2"></i>contato@isabellecinema.com</li>
+            <li><i class="fas fa-phone me-2"></i>(XX) XXXXX-XXXX</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h4>Redes Sociais</h4>
+          <div class="social-links">
+            <a href="https://www.instagram.com/petri_belle/"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-vimeo-v"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <p class="text-muted small">&copy; 2025 Isabelle Petri Bessa. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></a>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+    // Efeito de digitação
+    const texts = ['Direção Cinematográfica', 'Fotografia Profissional', 'Edição Criativa'];
+    let count = 0;
+    let index = 0;
+    let currentText = '';
+    let letter = '';
+    (function type() {
+      if(count === texts.length) count = 0;
+      currentText = texts[count];
+      letter = currentText.slice(0, ++index);
+      document.querySelector('#typed-text').textContent = letter;
+      if(letter.length === currentText.length) {
+        count++;
+        index = 0;
+        setTimeout(type, 2000);
+      } else {
+        setTimeout(type, 100);
+      }
+    })();
+    // Botão "Back to Top"
+    const backToTopButton = document.getElementById("backToTop");
+    window.addEventListener("scroll", function() {
+      if (window.pageYOffset > 300) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
